@@ -1,0 +1,64 @@
+[project]
+name = "url-miner"
+version = "0.1.0.dev0"
+description = "Modular URL extraction & filtering pipeline"
+authors = [
+    {name = "Arash Naderian amdkna@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = "^3.9"
+dependencies = [
+    "typer[all] (>=0.16.0,<0.17.0)",
+    "pydantic (>=2.11.7,<3.0.0)",
+    "httpx (>=0.28.1,<0.29.0)",
+    "beautifulsoup4 (>=4.13.4,<5.0.0)",
+    "lxml (>=6.0.0,<7.0.0)",
+    "sqlalchemy (>=2.0.42,<3.0.0)",
+    "pymongo (>=4.13.2,<5.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+pytest-cov = "^6.2.1"
+black = "^25.1.0"
+isort = "^6.0.1"
+mypy = "^1.17.1"
+flake8 = "^7.3.0"
+pre-commit = "^4.2.0"
+
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.6.1"
+pdocs = "^1.2.0"
+
+[project.scripts]
+# this makes “url-mine” invoke your Typer app in src/url_miner/cli.py
+url-mine = "url_miner.cli:app"
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+allow_redefinition = false
+show_error_codes = true
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --cov=src/url_miner"
+testpaths = ["tests"]
+
+[tool.pre-commit]
+requires = ["pre-commit"]
